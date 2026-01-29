@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BESQURE - Geometric Street  Fashion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --white: #fafafa;
+            --accent: #ff3366;
+            --secondary: #00ff99;
+            --gray: #888888;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Mono', monospace;
+            background: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: linear-gradient(180deg, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0) 100%);
+            animation: slideDown 0.6s ease;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            letter-spacing: 4px;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover::after {
+            transform: scaleX(1);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav a::before {
+            content: '[';
+            opacity: 0;
+            margin-right: 5px;
+            transition: opacity 0.3s ease;
+        }
+
+        nav a::after {
+            content: ']';
+            opacity: 0;
+            margin-left: 5px;
+            transition: opacity 0.3s ease;
+        }
+
+        nav a:hover::before,
+        nav a:hover::after {
+            opacity: 1;
+            color: var(--accent);
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255, 51, 102, 0.03) 2px,
+                    rgba(255, 51, 102, 0.03) 4px
+                );
+            animation: scan 8s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(100px); }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(4rem, 12vw, 10rem);
+            letter-spacing: 20px;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero h1::before {
+            content: 'BESQURE';
+            position: absolute;
+            left: 3px;
+            top: 3px;
+            color: var(--accent);
+            z-index: -1;
+            animation: glitch 3s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            color: var(--gray);
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: transparent;
+            border: 3px solid var(--accent);
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: bold;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            transition: color 0.3s ease;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--accent);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .cta-button:hover::before {
+            left: 0;
+        }
+
+        .cta-button:hover {
+            color: var(--black);
+        }
+
+        /* Geometric Decorations */
+        .square-decorator {
+            position: absolute;
+            border: 2px solid var(--secondary);
+            animation: rotate 20s linear infinite;
+        }
+
+        .square-1 {
+            width: 150px;
+            height: 150px;
+            top: 20%;
+            left: 10%;
+            opacity: 0.3;
+        }
+
+        .square-2 {
+            width: 100px;
+            height: 100px;
+            bottom: 25%;
+            right: 15%;
+            opacity: 0.3;
+            animation-direction: reverse;
+            animation-duration: 15s;
+        }
+
+        .square-3 {
+            width: 80px;
+            height: 80px;
+            top: 60%;
+            left: 20%;
+            opacity: 0.2;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Featured Products */
+        .featured {
+            padding: 8rem 4rem;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            letter-spacing: 10px;
+            margin-bottom: 4rem;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: var(--accent);
+            margin: 1rem auto 0;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: #151515;
+            border: 1px solid #222;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 51, 102, 0.1) 50%, transparent 70%);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .product-placeholder {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 6rem;
+            color: var(--gray);
+            opacity: 0.3;
+        }
+
+        .product-info {
+            padding: 2rem;
+        }
+
+        .product-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 3px;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .product-tag {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--secondary);
+            color: var(--black);
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            transform: rotate(3deg);
+        }
+
+        /* About Section */
+        .about {
+            padding: 8rem 4rem;
+            background: #0f0f0f;
+            position: relative;
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about p {
+            font-size: 1.1rem;
+            line-height: 2;
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        .about .highlight {
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            padding: 8rem 4rem;
+            text-align: center;
+        }
+
+        .newsletter-form {
+            max-width: 600px;
+            margin: 3rem auto 0;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 1.2rem 1.5rem;
+            background: #151515;
+            border: 2px solid #333;
+            color: var(--white);
+            font-family: 'Space Mono', monospace;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            transition: border-color 0.3s ease;
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .newsletter-button {
+            padding: 1.2rem 2.5rem;
+            background: var(--accent);
+            border: none;
+            color: var(--white);
+            font-family: 'Space Mono', monospace;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.1s ease;
+        }
+
+        .newsletter-button:hover {
+            background: #ff1a4d;
+            transform: scale(1.05);
+        }
+
+        .newsletter-button:active {
+            transform: scale(0.98);
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 4rem 2rem;
+            border-top: 1px solid #222;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto 3rem;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 5px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .social-links a {
+            color: var(--white);
+            font-size: 1.5rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            color: var(--gray);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1.5rem 2rem;
+            }
+
+            nav ul {
+                gap: 1.5rem;
+                font-size: 0.8rem;
+            }
+
+            .hero h1 {
+                letter-spacing: 10px;
+            }
+
+            .hero p {
+                font-size: 1rem;
+                letter-spacing: 4px;
+            }
+
+            .featured, .about, .newsletter {
+                padding: 4rem 2rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator::before {
+            content: '↓';
+            font-size: 2rem;
+            color: var(--accent);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">BESQURE</div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#shop">Shop</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-bg"></div>
+        <div class="square-decorator square-1"></div>
+        <div class="square-decorator square-2"></div>
+        <div class="square-decorator square-3"></div>
+        
+        <div class="hero-content">
+            <h1>BESQURE</h1>
+            <p>Geometric Street Fashion</p>
+            <a href="#shop" class="cta-button">Explore Collection</a>
+        </div>
+        
+        <div class="scroll-indicator"></div>
+    </section>
+
+    <!-- Featured Products -->
+    <section id="shop" class="featured">
+        <h2 class="section-title">Featured Drops</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <div class="product-placeholder">□</div>
+                </div>
+                <div class="product-tag">NEW</div>
+                <div class="product-info">
+                    <h3 class="product-name">Quad Tee</h3>
+                    <p class="product-price">$45.00</p>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <div class="product-placeholder">◇</div>
+                </div>
+                <div class="product-tag">BESTSELLER</div>
+                <div class="product-info">
+                    <h3 class="product-name">Matrix Shirt</h3>
+                    <p class="product-price">$48.00</p>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <div class="product-placeholder">▢</div>
+                </div>
+                <div class="product-tag">LIMITED</div>
+                <div class="product-info">
+                    <h3 class="product-name">Geo Block Tee</h3>
+                    <p class="product-price">$42.00</p>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <div class="product-placeholder">⬡</div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Hex Print</h3>
+                    <p class="product-price">$45.00</p>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <div class="product-placeholder">▣</div>
+                </div>
+                <div class="product-tag">NEW</div>
+                <div class="product-info">
+                    <h3 class="product-name">Grid System</h3>
+                    <p class="product-price">$50.00</p>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <div class="product-placeholder">◆</div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Diamond Cut</h3>
+                    <p class="product-price">$44.00</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="about-content">
+            <h2 class="section-title">About BESQURE</h2>
+            <p>
+                BESQURE is more than a clothing brand—it's a <span class="highlight">movement of precision and rebellion</span>. 
+                Born from the intersection of geometric minimalism and urban street culture, we create T-shirts that make statements without saying a word.
+            </p>
+            <p>
+                Each design is meticulously crafted with <span class="highlight">sharp lines, bold angles, and mathematical precision</span>. 
+                We believe fashion should be intentional, bold, and unapologetically geometric.
+            </p>
+            <p>
+                Join the square revolution. <span class="highlight">Be bold. Be precise. BESQURE.</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <h2 class="section-title">Stay in the Loop</h2>
+        <p style="color: var(--gray); font-size: 1.1rem; letter-spacing: 2px;">
+            Get early access to new drops, exclusive designs, and geometric inspiration.
+        </p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Thanks for subscribing!');">
+            <input type="email" class="newsletter-input" placeholder="ENTER YOUR EMAIL" required>
+            <button type="submit" class="newsletter-button">Subscribe</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-logo">BESQURE</div>
+            <ul class="footer-links">
+                <li><a href="#">Shop</a></li>
+                <li><a href="#">Size Guide</a></li>
+                <li><a href="#">Shipping</a></li>
+                <li><a href="#">Returns</a></li>
+                <li><a href="#">FAQ</a></li>
+            </ul>
+            <div class="social-links">
+                <a href="#" aria-label="Instagram">IG</a>
+                <a href="#" aria-label="Twitter">TW</a>
+                <a href="#" aria-label="TikTok">TT</a>
+            </div>
+        </div>
+        <p class="copyright">© 2026 BESQURE. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll-based animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.product-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(50px)';
+            card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
